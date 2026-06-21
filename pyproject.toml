@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ceflobhash"
-version = "0.1.2"
+version = "0.1.3"
 description = "Root-Boolean Dual Node Inteligic — 可验证双节点共识判定 / verifiable dual-node consensus decision structure"
 readme = "README.md"
 license = {text = "MIT"}
