@@ -4,16 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ceflobhash"
-version = "0.1.1"
-description = "Binary vector representation & dual-node verification for LLM embeddings and neural representation — Root-Boolean Dual Node Inteligic"
+version = "0.1.2"
+description = "Root-Boolean Dual Node Inteligic — 可验证双节点共识判定 / verifiable dual-node consensus decision structure"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
-keywords = ["decision", "consensus", "verifiable", "dual-node"]
+keywords = ["decision", "consensus", "verifiable", "dual-node", "binary", "CEF", "root-boolean"]
 
 [project.urls]
-Homepage = "https://github.com/your-org/root-boolean"
-Source = "https://github.com/your-org/root-boolean"
+Homepage = "https://github.com/openoe/ceflobhash"
+Source = "https://github.com/openoe/ceflobhash"
 
 [tool.setuptools.packages.find]
 where = ["src"]
