@@ -1,7 +1,10 @@
-# Root-Boolean
+# ceflobhash
 
-Some hash-like utilities for binary vector operations.
-Built on a decision structure with two independent nodes.
+Binary vector representation & dual-node decision structure.
+Designed with LLM embedding and neural representation efficiency in mind.
+
+> `ceflobhash` = "Connect Everything Forever Low-Bit Hash"
+> A lightweight take on how binary vectors can represent, compare, and verify high-dimensional LLM embeddings without floating-point math.
 
 ---
 
@@ -15,23 +18,24 @@ pip install ceflobhash
 
 ```python
 from root_boolean import (
-    binarize,      # float → binary vector
-    hamming_distance,  # binary vector distance
+    binarize,           # float vector → binary vector
+    hamming_distance,   # binary vector distance
+    DualNode,           # dual-node verification structure
 )
 ```
 
-A couple of hash-adjacent tools.
-Nothing groundbreaking.
+Reducing 768-dimensional LLM embeddings to 256-bit binary vectors.
+Hamming over cosine. No dot product. No softmax. Just bits.
 
 ## Examples
 
-### 1. Quick embedding search (LLM optimization snippet)
+### 1. LLM embedding cache (binary lookup)
 
 ```python
 from root_boolean import binarize, hamming_distance
 import numpy as np
 
-# Simulate a small embedding cache
+# Simulate LLM embedding cache
 cache = {
     "dog": np.random.randn(768),
     "cat": np.random.randn(768),
@@ -39,37 +43,25 @@ cache = {
 }
 query = np.random.randn(768)
 
-# Binarize everything
+# Binarize — no float ops, just bits
 q_hm = binarize(query, bits=256)
-results = []
-for word, vec in cache.items():
-    v_hm = binarize(vec, bits=256)
-    d = hamming_distance(q_hm, v_hm)
-    results.append((d, word))
-results.sort()
-# → nearest neighbor by Hamming, no dot product needed
+results = sorted(
+    (hamming_distance(q_hm, binarize(v, bits=256)), w)
+    for w, v in cache.items()
+)
 ```
 
-### 2. Conway's Game of Life (state cell demo)
+### 2. State fingerprint (Conway's Game of Life)
 
 ```python
 from root_boolean import binarize
-
-# Encode a 5x5 Game of Life board as a binary vector
-board = [
-    [0,1,0,0,0],
-    [0,0,1,0,0],
-    [1,1,1,0,0],
-    [0,0,0,0,0],
-    [0,0,0,0,0],
-]
-flat = [cell for row in board for cell in row]
-# Pad to 64 bits and hash
-vec = binarize(flat, bits=64)
-# → can be used as a "board fingerprint" for state comparison
+board = [[0,1,0,0,0],[0,0,1,0,0],[1,1,1,0,0],
+         [0,0,0,0,0],[0,0,0,0,0]]
+vec = binarize([cell for row in board for cell in row], bits=64)
+# Board fingerprint for state comparison
 ```
 
-### 3. Dual node check (the part nobody asked for)
+### 3. Dual-node verification (the part most people skip)
 
 ```python
 from root_boolean import DualNode
@@ -84,9 +76,17 @@ h = node.audit(([1,0,1,0], (1,0,0,0)), v)
 # → SHA-256 fingerprint
 ```
 
+## Why binary vectors for LLM work?
+
+- **Memory**: 256 bits vs 768 float32 ≈ 96% less per embedding
+- **Speed**: Hamming distance (XOR + popcount) vs dot product ≈ 10-50x faster
+- **Verifiable**: DualNode produces an auditable fingerprint per decision
+
+Not a replacement for attention. A complement for the parts that don't need it.
+
 ## Status
 
-v0.1.0 — casual release. Issues and comments welcome.
+v0.1.1 — experimental. Works. Questions welcome.
 
 ---
 
