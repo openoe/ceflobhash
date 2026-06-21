@@ -1,67 +1,42 @@
 # ceflobhash
 
-Binary vector representation & dual-node decision structure.
-Designed with LLM embedding and neural representation efficiency in mind.
+> **Connect Everything Forever Low-Bit Hash**
+> A dual-node binary verification structure for LLM embeddings and beyond.
 
-> `ceflobhash` = "Connect Everything Forever Low-Bit Hash"
-> A lightweight take on how binary vectors can represent, compare, and verify high-dimensional LLM embeddings without floating-point math.
+Reduces high-dimensional vectors (e.g. 768d LLM embeddings) to compact binary representations.
+Verifies decisions via independent dual-node consensus with auditable fingerprints.
+
+No dot product. No softmax. Just bits and XOR.
 
 ---
 
-## Quick install
+## Install
 
 ```bash
 pip install ceflobhash
 ```
 
-## What's in the box
+## Core API
 
 ```python
 from root_boolean import (
-    binarize,           # float vector → binary vector
-    hamming_distance,   # binary vector distance
-    DualNode,           # dual-node verification structure
+    binarize,           # float vector → N-bit binary vector
+    hamming_distance,   # binary vector → distance
+    DualNode,           # dual-node consensus + audit
 )
 ```
 
-Reducing 768-dimensional LLM embeddings to 256-bit binary vectors.
-Hamming over cosine. No dot product. No softmax. Just bits.
+| Function | What |
+|---|---|
+| `binarize(vec, bits=256)` | Float → binary vector (bit-width configurable) |
+| `hamming_distance(a, b)` | XOR + popcount |
+| `DualNode(anchor_a, anchor_b)` | Dual independent decision nodes |
 
-## Examples
+## DualNode — what it does
 
-### 1. LLM embedding cache (binary lookup)
-
-```python
-from root_boolean import binarize, hamming_distance
-import numpy as np
-
-# Simulate LLM embedding cache
-cache = {
-    "dog": np.random.randn(768),
-    "cat": np.random.randn(768),
-    "car": np.random.randn(768),
-}
-query = np.random.randn(768)
-
-# Binarize — no float ops, just bits
-q_hm = binarize(query, bits=256)
-results = sorted(
-    (hamming_distance(q_hm, binarize(v, bits=256)), w)
-    for w, v in cache.items()
-)
-```
-
-### 2. State fingerprint (Conway's Game of Life)
-
-```python
-from root_boolean import binarize
-board = [[0,1,0,0,0],[0,0,1,0,0],[1,1,1,0,0],
-         [0,0,0,0,0],[0,0,0,0,0]]
-vec = binarize([cell for row in board for cell in row], bits=64)
-# Board fingerprint for state comparison
-```
-
-### 3. Dual-node verification (the part most people skip)
+Two independent nodes each evaluate the same input independently.
+Output is one of: `TRUE` / `FALSE` / `UNKNOWN`.
+Every decision produces a **SHA-256 audit fingerprint** — verifiable later.
 
 ```python
 from root_boolean import DualNode
@@ -73,20 +48,22 @@ node = DualNode(
 v = node.evaluate(([1,0,1,0], (1,0,0,0)))
 # → "TRUE" | "FALSE" | "UNKNOWN"
 h = node.audit(([1,0,1,0], (1,0,0,0)), v)
-# → SHA-256 fingerprint
+# → SHA-256 — can be logged, compared, re-verified
 ```
 
 ## Why binary vectors for LLM work?
 
-- **Memory**: 256 bits vs 768 float32 ≈ 96% less per embedding
-- **Speed**: Hamming distance (XOR + popcount) vs dot product ≈ 10-50x faster
-- **Verifiable**: DualNode produces an auditable fingerprint per decision
+| Metric | float32 (768d) | binary (256b) |
+|---|---|---|
+| Memory | 3 KB per vector | 32 bytes (−99%) |
+| Distance | dot product (768 mul+add) | XOR + popcount (~10-50× faster) |
+| Verifiable | No | Yes (DualNode audit) |
 
-Not a replacement for attention. A complement for the parts that don't need it.
+Not a replacement for attention. A complement for lookups, caching, and decision verification.
 
 ## Status
 
-v0.1.1 — experimental. Works. Questions welcome.
+v0.1.1 — experimental but functional. MIT.
 
 ---
 
