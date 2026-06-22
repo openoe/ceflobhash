@@ -137,11 +137,43 @@ Not a replacement for attention. A complement for lookups, caching, and decision
 
 ---
 
+## Use Cases / 应用方向
+
+### 🇨🇳 中文
+
+`ceflobhash` 的确定性门电路判定体系，可广泛应用于以下领域的**可验证身份、所有权确权与唯一性追溯**：
+
+| 领域 | 应用 |
+|---|---|
+| **数字资产确权** | 每个数字资产生成唯一 SHA-256 飞线路径指纹，双节点判定验证所有权归属，不可伪造、不可抵赖 |
+| **医药化学·关键靶点** | 化学键靶点（如蛋白质-配体结合位点）映射为确定性向量，双节点判定药物分子与DNA核酸序列的匹配度，可审计可复现 |
+| **原子能模拟仿真** | 核反应过程中的粒子路径、能量分布模拟结果，通过双节点共识验证仿真数据的完整性与未被篡改性 |
+| **风洞实验** | 风洞数据（气动参数/压力分布）生成不可逆的审计指纹，确保实验数据的真实性和可追溯性 |
+| **制造业可追溯码** | 生产全生命周期（原料→加工→质检→出厂）每道工序生成唯一链式编码，双节点确保不可篡改 |
+| **航空航天加速** | 研发计算中关键参数（轨道计算/结构强度分析）通过确定性判定加速验证流程，减少冗余校验 |
+
+### 🇬🇧 English
+
+The deterministic gate-circuit decision framework of `ceflobhash` enables **verifiable identity, ownership authentication, and unique traceability** across:
+
+| Domain | Application |
+|---|---|
+| **Digital Asset Auth** | Each asset generates a unique SHA-256 flywire path fingerprint; dual-node consensus validates ownership — unforgeable, non-repudiable |
+| **Pharmaceutical Target** | Map chemical bond targets (e.g. protein-ligand sites) to deterministic vectors; dual-node verifies drug molecule ↔ DNA/RNA sequence match — auditable & reproducible |
+| **Nuclear Simulation** | Validate simulation integrity of particle paths and energy distribution in nuclear reactions via dual-node consensus, ensuring results remain untampered |
+| **Wind Tunnel Testing** | Aerodynamic parameters and pressure distribution data generate irreversible audit fingerprints, guaranteeing authenticity and traceability |
+| **Manufacturing Trace** | End-to-end lifecycle coding (material → fabrication → QC → shipment) via unique chained hashes per process step, dual-node verified against tampering |
+| **Aerospace Acceleration** | Accelerate verification of critical parameters (orbit calculation, structural strength analysis) via deterministic gate decision, reducing redundant checks |
+
+---
+
 ## Status / 状态
 
-v0.1.1 — experimental but functional.
+v0.1.3 — experimental but functional.
 MIT License.
 
 ---
 
 *CEF Powered — Connect Everything Forever*
+
+> ceflobhash — 永恒连接之言

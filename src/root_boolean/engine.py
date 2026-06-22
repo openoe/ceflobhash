@@ -42,6 +42,12 @@ class Metric:
 # ── 验证函数族 ─────────────────────────────────────────────────────────────
 
 class Verifier:
+    """A verifier tests one dimension of input against an anchored threshold.
+
+    Used for digital asset auth, pharmaceutical target matching,
+    manufacturing trace codes, and any domain requiring deterministic
+    gate-circuit verification.
+    """
     def __init__(self, name: str, metric_fn, threshold: float, weight: float = 1.0):
         self.name = name
         self.fn = metric_fn

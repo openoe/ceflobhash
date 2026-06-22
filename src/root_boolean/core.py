@@ -62,6 +62,14 @@ class DualNode:
 
     Both nodes must independently agree for a TRUE verdict.
     This is not a vote. This is an AND gate at the root.
+
+    Use Cases:
+    - Digital Asset Auth: unique flywire fingerprint per asset
+    - Pharmaceutical: chemical bond target to DNA/RNA matching
+    - Nuclear Simulation: particle path integrity verification
+    - Wind Tunnel: aerodynamic data audit fingerprints
+    - Manufacturing: full-lifecycle tamper-proof trace codes
+    - Aerospace: accelerated parameter validation
     """
 
     def __init__(self, anchor_a: NodeAnchor, anchor_b: NodeAnchor):
